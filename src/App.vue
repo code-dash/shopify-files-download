@@ -12,7 +12,7 @@
         color="blue"
         @click="handleClick"
       >
-        <v-icon>mdi-download</v-icon>
+        <svg version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" fill="#fff" /></svg>
       </v-btn>
     </v-main>
   </v-app>
@@ -122,7 +122,6 @@ export default {
         this.request(this.nextPageLink(target))
       } else {
         this.result = true;
-        this.overlay = false;
       }
     },
 
@@ -135,6 +134,7 @@ export default {
     handleClose() {
       this.overlay = false;
     }
+
   }
 };
 </script>
@@ -159,11 +159,6 @@ export default {
       position: fixed;
       top: 50%;
       right: 0;
-    }
-
-    .v-overlay,
-    .v-application--wrap {
-      z-index: 9999 !important;
     }
   }
 

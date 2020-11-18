@@ -4,13 +4,12 @@
             :value="true"
             max-width="600px"
             persistent
-            @click:outside="handleBlur"
         >
             <v-card
                 color="primary"
                 dark
             >
-                <Results :files="files" v-if="result" />
+                <Results :files="files" v-if="result" @close="handleClose" />
                 <v-card-text v-else>
                     Processing request: {{page}}
                     <v-progress-linear
@@ -54,7 +53,7 @@ export default {
     },
 
     methods: {
-        handleBlur() {
+        handleClose() {
             this.$emit('close');
         }
     }
