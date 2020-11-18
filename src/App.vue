@@ -151,4 +151,24 @@ export default {
   .v-btn--fab.v-size--default.v-btn--absolute.v-btn--top {
     top: 0 !important;
   }
+
+  #shopify-files-download-wrapper {
+    font-size: 16px;
+
+    .toggle-main-nav {
+      position: fixed;
+      top: 50%;
+      right: 0;
+    }
+
+    .v-overlay,
+    .v-application--wrap {
+      z-index: 9999 !important;
+    }
+  }
+
+  // Fixes for the vuetify global styles breaking Shopify
+  html {
+    font-size: 62.5% !important;
+  }
 </style>
