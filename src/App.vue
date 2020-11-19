@@ -133,6 +133,9 @@ export default {
 
     handleClose() {
       this.overlay = false;
+      this.files = [];
+      this.page = 0;
+      this.result = false;
     }
 
   }

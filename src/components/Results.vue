@@ -1,43 +1,60 @@
 <template>
-    <v-card-text>
-        <v-row>
-            <v-textarea
-                name="input"
-                :height="250"
-                :label="title"
-                no-resize
-                :value="textareaValue"
-            ></v-textarea>
-        </v-row>
-        <v-row
-            align="center"
-            justify="space-between"
-        >
-            <v-btn
-                color="green"
-                @click="downloadFiles"
+    <div>
+        <DownloadProgress :files="files" :fileCount="fileCount" v-if="downloadStart" />
+        <v-card-text v-else>
+            <v-row>
+                <v-textarea
+                    name="input"
+                    :height="250"
+                    :label="title"
+                    no-resize
+                    :value="textareaValue"
+                ></v-textarea>
+            </v-row>
+            <v-row
+                align="center"
+                justify="space-between"
             >
-                Download All
-            </v-btn>
-            <v-btn
-                color="red"
-                @click="handleClose"
-            >
-                Close
-            </v-btn>
-        </v-row>
-    </v-card-text>
+                <v-btn
+                    color="green"
+                    @click="downloadFiles"
+                >
+                    Download All
+                </v-btn>
+                <v-btn
+                    color="red"
+                    @click="handleClose"
+                >
+                    Close
+                </v-btn>
+            </v-row>
+        </v-card-text>
+    </div>
 </template>
 
 <script>
+import DownloadProgress from './DownloadProgress';
+
 export default {
     name: "Results",
+
+    data: function() {
+        return {
+            downloadStart: false,
+            fileCount: 0
+        }
+    },
 
     props: {
         files: {
             required: true,
-            type: Array
+            type: Array,
+            default: () => []
         }
+    },
+
+    components: {
+        DownloadProgress
     },
 
     computed: {
@@ -55,7 +72,9 @@ export default {
         },
 
         async downloadFiles(){
+            this.downloadStart = true;
             for(let i = 0; i < this.files.length; i++){
+                this.fileCount = i;
                 await fetch(this.files[i])
                     .then(resp => resp.blob())
                     .then(blob => {
@@ -70,6 +89,8 @@ export default {
                     })
                     .catch(() => alert('there was an error'));
             }
+            alert('Done!')
+            this.$emit('close');
         }
     }
 }
